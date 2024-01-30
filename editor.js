@@ -44,7 +44,7 @@ function syncContentIf() {
 }
 
 window.onload = function () {
-    editor.innerText = localStorage.html // editor <- var
+    editor.innerText = localStorage.html || "" // editor <- var
     setTimeout(syncContent, 0)
     editor.oninput = syncContentIf
     codeDecorations()
