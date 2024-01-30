@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>basic HTML editor</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+    <div id="page"></div>
+
+    <pre id="html_console" contenteditable="" class="html_console border"></pre>
+    <script>
+        function html_write(html) {
+            html_console.innerHTML += html
+        }
+        function html_write_line(html) {
+            html_write(html + "\n")
+        }
+    </script>
+
+    <hr>
+    <button onclick="syncContent()">sync</button>
+    <label><input type="checkbox" id="autoSync" checked="">auto-sync</label>
+    <br>
+    <button onclick="location.reload()">reload</button> <button onclick="codeDecorations()">code decorations</button>
+    <br>
+
+    <pre id="editor" class="editor border" contenteditable="" spellcheck="false"></pre>
+
+    <script src="editor.js"></script>
+    <link rel="stylesheet" href="editor.css">
+
+</body>
+
+</html>
