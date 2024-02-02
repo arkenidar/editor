@@ -1,16 +1,11 @@
 .tag-inside {
-    background-color: cyan;
     color: black;
+    background-color: cyan;
 }
 
 .tag-name {
     color: white;
     background-color: grey;
-    border-style: ridge;
-}
-
-.editor {
-    line-height: 2.2;
 }
 
 .html_console {
@@ -19,7 +14,36 @@
 }
 
 .border {
+    font: 13px monospace;
+    padding: 13px;
     border: 1px black solid;
-    padding: 1em;
-    white-space: break-spaces;
+    /* 28px from 2*(13+1) */
+}
+
+.editor {
+    z-index: 1;
+}
+
+.textarea {
+    z-index: 2;
+
+    /* 28px from 2*(13+1) */
+    width: calc(100% - 28px);
+    height: 50vh;
+
+    background: transparent;
+    color: transparent;
+    caret-color: black;
+
+    resize: none;
+}
+
+.editor,
+.textarea {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    overflow: auto;
+    white-space: pre-wrap;
 }

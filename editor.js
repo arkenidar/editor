@@ -1,3 +1,6 @@
+// https://github.com/WebCoder49/code-input
+// https://css-tricks.com/creating-an-editable-textarea-that-supports-syntax-highlighted-code/
+// https://codepen.io/WebCoder49/pen/dyNyraq
 
 function setHTML(html) {
 
@@ -14,7 +17,7 @@ function setHTML(html) {
 }
 
 function codeDecorations() {
-    var html = editor.innerText
+    var html = textarea.value
     html = html.replaceAll("<", "{open-tag}")
     html = html.replaceAll(">", "{close-tag}")
 
@@ -23,8 +26,8 @@ function codeDecorations() {
         + "<span class='tag-inside'>$1</span>"
         + "<span class='tag'>&gt;</span>")
 
-    html = html.replaceAll("{open-tag}", "<")
-    html = html.replaceAll("{close-tag}", ">")
+    html = html.replaceAll("{open-tag}", "&lt;") // <
+    html = html.replaceAll("{close-tag}", "&gt;") // >
 
     editor.innerHTML = html
 
@@ -35,17 +38,27 @@ function codeDecorations() {
 
 // [sync] from editor
 function syncContent() {
-    localStorage.html = editor.innerText // var <- editor
-    setHTML(editor.innerText) // page <- editor (display)
+    var text = textarea.value
+    // Handle final newlines (see article)
+    if (text[text.length - 1] == "\n") { // If the last character is a newline character
+        text += " "; // Add a placeholder space character to the final line 
+    }
+    textarea.value = text
+
+    localStorage.html = text // var <- editor
+    setHTML(text) // page <- editor (display)
+    codeDecorations()
 }
 
 function syncContentIf() {
-    if (autoSync.checked) window.syncContent()
+    if (autoSync.checked) syncContent()
 }
 
-window.onload = function () {
-    editor.innerText = localStorage.html || "" // editor <- var
-    setTimeout(syncContent, 0)
-    editor.oninput = syncContentIf
-    codeDecorations()
+function textareaInput() {
+    syncContentIf()
+}
+
+onload = function () {
+    textarea.value = localStorage.html || "" // editor <- var
+    textarea.oninput = textareaInput; textareaInput()
 }

@@ -29,7 +29,23 @@
     <button onclick="location.reload()">reload</button> <button onclick="codeDecorations()">code decorations</button>
     <br>
 
-    <pre id="editor" class="editor border" contenteditable="" spellcheck="false" translate="no"></pre>
+    <div style="position: relative;">
+        <div id="editor" class="editor border" spellcheck="false" translate="no"></div>
+        <textarea id="textarea" class="textarea border" spellcheck="false" translate="no"></textarea>
+    </div>
+    <script>
+        function bind() {
+
+            // copy_size
+            editor.style.width = textarea.getBoundingClientRect().width - 2 * (13 + 1) + "px" // paddings and borders in ".border"
+            editor.style.height = textarea.getBoundingClientRect().height - 2 * (13 + 1) + "px" // paddings and borders in ".border"
+
+            // sync scrolls
+            editor.scrollTop = textarea.scrollTop
+            editor.scrollLeft = textarea.scrollLeft
+        }
+        setInterval(bind, 0)
+    </script>
 
     <script src="editor.js"></script>
     <link rel="stylesheet" href="editor.css">
