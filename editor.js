@@ -47,7 +47,6 @@ function syncContent() {
 
     localStorage.html = text // var <- editor
     setHTML(text) // page <- editor (display)
-    codeDecorations()
 }
 
 function syncContentIf() {
@@ -56,6 +55,7 @@ function syncContentIf() {
 
 function textareaInput() {
     syncContentIf()
+    codeDecorations()
 }
 
 onload = function () {
