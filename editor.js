@@ -47,6 +47,8 @@ function syncContent() {
 
     localStorage.html = text // var <- editor
     setHTML(text) // page <- editor (display)
+
+    if (typeof init != "undefined") init()
 }
 
 function syncContentIf() {
@@ -59,6 +61,28 @@ function textareaInput() {
 }
 
 onload = function () {
-    textarea.value = localStorage.html || "" // editor <- var
+    textarea.value = localStorage.html || example1() // editor <- var
     textarea.oninput = textareaInput; textareaInput()
+}
+
+function example1() {
+    // https://marketplace.visualstudio.com/items?itemName=Tobermory.es6-string-html
+    return /*html*/`<div id="app">
+<button @click="count++">Count by click</button>
+{{ count }}
+</div>
+    
+<script>
+function init() {
+
+Vue.createApp({
+    data() {
+        return {
+            count: 0
+        }
+    }
+}).mount('#app')
+
+}
+</script>`
 }
