@@ -48,7 +48,9 @@ function syncContent() {
     localStorage.html = text // var <- editor
     setHTML(text) // page <- editor (display)
 
-    if (typeof init != "undefined") init()
+    try {
+        if (typeof init != "undefined") init()
+    } catch (error) { console.error(error) }
 }
 
 function syncContentIf() {
