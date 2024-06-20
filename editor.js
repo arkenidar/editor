@@ -36,8 +36,19 @@ function codeDecorations() {
     }
 }
 
+save_function_was_called = false
+
 // [sync] from editor
 function syncContent() {
+
+    try {
+        if (typeof save != "undefined") {
+            save()
+            save_function_was_called = true
+        }
+        else console.warn("save() is not defined")
+    } catch (error) { console.error("save()", error) }
+
     var text = textarea.value
     // Handle final newlines (see article)
     if (text[text.length - 1] == "\n") { // If the last character is a newline character
@@ -50,7 +61,13 @@ function syncContent() {
 
     try {
         if (typeof init != "undefined") init()
-    } catch (error) { console.error(error) }
+    } catch (error) { console.error("init()", error) }
+
+    try {
+        if (save_function_was_called == false)
+            console.warn("save() is not called: not calling restore()")
+        else if (typeof restore != "undefined") restore()
+    } catch (error) { console.error("restore()", error) }
 }
 
 function syncContentIf() {
@@ -77,7 +94,7 @@ function example1() {
 <script>
 function init() {
 
-Vue.createApp({
+vue = Vue.createApp({
     data() {
         return {
             count: 0

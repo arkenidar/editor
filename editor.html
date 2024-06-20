@@ -53,6 +53,38 @@
     <script src="editor.js"></script>
     <link rel="stylesheet" href="editor.css">
 
+    <script>
+
+        // save & restore
+        // [vue] save and restore vue.$data
+
+        function save() {
+
+            saved_data = {}
+
+            if (typeof vue != "undefined") {
+
+                for (const name of Object.keys(vue.$data)) {
+                    saved_data[name] = vue.$data[name]
+                }
+            }
+
+        } // end of: save()
+
+        function restore() {
+
+            if (typeof vue != "undefined") {
+
+                for (const name of Object.keys(saved_data)) {
+                    vue.$data[name] = saved_data[name]
+                }
+            }
+
+        } // end of: restore()
+
+        // end of: save & restore
+    </script>
+
 </body>
 
 </html>
