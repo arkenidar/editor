@@ -1,11 +1,11 @@
 .tag-inside {
-    color: black;
-    background-color: cyan;
+    color: green;
+    background-color: transparent;
 }
 
 .tag-name {
-    color: white;
-    background-color: grey;
+    color: green;
+    background-color: lightgrey;
 }
 
 .html_console {
