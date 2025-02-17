@@ -84,15 +84,18 @@ onload = function () {
     textarea.oninput = textareaInput; textareaInput()
 }
 
+// https://marketplace.visualstudio.com/items?itemName=Tobermory.es6-string-html
+
 function example1() {
     // https://marketplace.visualstudio.com/items?itemName=Tobermory.es6-string-html
     return /*html*/`<div id="app">
-<button @click="count++">Count by click</button>
-{{ count }}
+<button @click="count++">Count by click : {{ count }}</button>
 </div>
     
 <script>
 function init() {
+
+initCSS() // TailwindCSS
 
 vue = Vue.createApp({
     data() {
@@ -103,5 +106,39 @@ vue = Vue.createApp({
 }).mount('#app')
 
 }
+</script>`
+}
+
+function example2() {
+    return /*html*/`<h1 class="text-3xl font-bold underline">Hello world from Tailwind with customizations!</h1>
+<p>sharing recent hack for TailWind-CSS without pre-compilations ( no PostCSS either ) . </p>
+<br>
+<a href="javascript: alert('link with javascript'); "> link with js </a>
+<br>
+<br>
+<button onclick="alert('you clicked me !')"> clickable button </button>
+<br>
+<form onsubmit=" alert('you wrote : ' + this.input_text1.value); return false; ">
+    <input required id="input_text1" placeholder="write here then submit">
+    <input type="submit" value="submit">
+</form>
+
+<br>
+<button class="btn-green">green Button</button>
+<button class="btn-red">red Button</button>
+<br>
+<br>
+<textarea> text area test </textarea>
+
+<script>
+
+    function init() {
+        initCSS(); // TailwindCSS
+        const CSSpairs = [
+            ['.btn-green', 'bg-green-500 text-white hover:bg-green-700'],
+        ]
+        initCSSPairs(CSSpairs);
+    }
+
 </script>`
 }
