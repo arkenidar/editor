@@ -9,6 +9,57 @@
 
     <!-- TailwindCSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+
+        // TailwindCSS
+
+        // pairs of css selectors and classes to apply
+        const cssSelectorsClassesPairs = [
+
+            // ['button , input[type=button] , input[type=submit]', 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'],
+
+            ['button , input[type=button] , input[type=submit] , a[href^="javascript:"] ', 'btn btn-blue'],
+
+            ['.btn', 'font-bold py-2 px-4 rounded'],
+
+            ['.btn-blue', 'bg-blue-500 text-white'],
+            //['.btn-blue:hover', 'bg-blue-700'],
+            ['.btn-blue', 'hover:bg-blue-700'],
+
+            ['.btn-red', 'bg-red-500 text-white hover:bg-red-700'],
+
+            ['textarea , input[type=text] , input:not([type])', 'border border-gray-300'],
+        ]
+
+        // apply classes to selectors
+        function cssSelectorsClassesPairApply(pair) {
+
+            // add classes to element
+            function cssAddClasses(element, classes) {
+                element.classList.add(...classes.split(' '));
+            }
+
+            // apply classes to all elements matching selector
+            const [selector, classes] = pair;
+            document.querySelectorAll(selector).forEach(element => cssAddClasses(element, classes));
+        }
+
+        function initCSSPairs(cssPairs) {
+            // apply all pairs
+            cssPairs.forEach(pair => cssSelectorsClassesPairApply(pair));
+        }
+
+        function initCSS() {
+            initCSSPairs(cssSelectorsClassesPairs);
+        }
+
+        function init() {
+            initCSS();
+        }
+
+        init();
+
+    </script>
 
     <!-- VueJS + PiniaJS -->
 
@@ -56,6 +107,7 @@
     <br>
     <button onclick="codeDecorations()">code decorations</button>
     <button onclick="textarea.value=example1();textareaInput()">example1</button>
+    <button onclick="textarea.value=example2();textareaInput()">example2</button>
     <br>
 
     <div style="position: relative;">
