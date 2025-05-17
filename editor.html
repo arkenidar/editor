@@ -88,6 +88,29 @@
 
 <body>
 
+    <script type="text/javascript">
+        // show sources
+        function showSources() {
+            document.getElementById("sources").classList.toggle("hidden");
+        }
+    </script>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+    Editor for DHTML <button type="button" onclick="showSources()">show sources (toggle)</button>
+    <div id="sources" class="hidden">
+        <script src="show-source.js" data-href="editor.js"></script>
+        <button type="button" onclick="showSources()">show sources (toggle)</button>
+        <script src="show-source.js" data-href="editor.html"></script>
+        <button type="button" onclick="showSources()">show sources (toggle)</button>
+        <script src="show-source.js" data-href="editor.css"></script>
+        <button type="button" onclick="showSources()">show sources (toggle)</button>
+    </div>
+
+    <hr><br>
+
     <div id="page"></div>
 
     <pre id="html_console" contenteditable="" class="html_console border"></pre>
