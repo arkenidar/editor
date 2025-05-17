@@ -21,7 +21,7 @@ function codeDecorations() {
     html = html.replaceAll("<", "{open-tag}")
     html = html.replaceAll(">", "{close-tag}")
 
-    html = html.replaceAll(/{open-tag}(.*?){close-tag}/g,
+    html = html.replaceAll(/{open-tag}([\s\S]*?){close-tag}/g,
         "<span class='tag'>&lt;</span>"
         + "<span class='tag-inside'>$1</span>"
         + "<span class='tag'>&gt;</span>")
