@@ -149,20 +149,41 @@ function save(){
 function example2() {
     // https://marketplace.visualstudio.com/items?itemName=Tobermory.es6-string-html
     return /*html*/`<div id="app">
-<button @click="count++">Count by click : {{ count }}</button>
+
+<div>
+<ul>
+<li v-for="(item,index) in cart" :key="item.id">
+{{ item.name }} , {{ item.price }} , 
+<button @click="deleteItem(index)">Delete</button> </li>
+</ul>
+    <!-- v-else to show a fallback message if the list is empty -->
+    <div v-if="cart.length === 0">No items in this shopping cart.</div>
+</div>
+
+<br> <a href="product-1.html" >product-1</a> <br> <a href="product-2.html" >product-2</a> <br>
+<button @click="addItem( {name:'type1', price:11} )" > add type 1 </button>
+<button @click="addItem( {name:'type2', price:22} )" > add type 2 </button>
+
 </div>
     
 <script>
 function init() {
 
-initCSS() // TailwindCSS
+if( ! window.parent.persistentData.cart )
+  window.parent.persistentData.cart = []
 
 vue = Vue.createApp({
     data() {
-        return {
-            count: 0
-        }
+        return window.parent.persistentData
+    },
+  methods: {
+    deleteItem(index) {
+      this.cart.splice(index, 1); // Removes the task at the given index
+    },
+    addItem(item){
+      this.cart.push(item); 
     }
+  }
 }).mount('#app')
 
 }
