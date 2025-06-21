@@ -88,7 +88,7 @@ onload = function () {
 
 function example1() {
     const html_code = /*html*/
-        raw`
+        String.raw`
 <div id="ractive-container"></div>
 
 <script id="template" type="text/ractive">
