@@ -87,19 +87,18 @@ onload = function () {
 // https://marketplace.visualstudio.com/items?itemName=Tobermory.es6-string-html
 
 function example1() {
-    const html_code = /*html*/
-        String.raw`
+    const html_code = /*html*/`
 <div id="ractive-container"></div>
 
 <script id="template" type="text/ractive">
 <div>Shopping Cart</div>
 {{#if cart && cart.length > 0}}
 {{#each cart : index}}
- <div>{{name}} - ${{ price }} -
+ <div>{{name}} - \${{ price }} -
   <button on-click="@.splice('cart', index, 1)" > Remove </button>
  </div>
 {{/each}}
-<div>Total: ${{ total }}</div>
+<div>Total: \${{ total }}</div>
 {{else}}
 <div>Your cart is empty.</div>
 {{/if}}
