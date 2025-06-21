@@ -87,6 +87,64 @@ onload = function () {
 // https://marketplace.visualstudio.com/items?itemName=Tobermory.es6-string-html
 
 function example1() {
+    const html_code = /*html*/
+        raw`
+<div id="ractive-container"></div>
+
+<script id="template" type="text/ractive">
+<div>Shopping Cart</div>
+{{#if cart && cart.length > 0}}
+{{#each cart : index}}
+ <div>{{name}} - ${{ price }} -
+  <button on-click="@.splice('cart', index, 1)" > Remove </button>
+ </div>
+{{/each}}
+<div>Total: ${{ total }}</div>
+{{else}}
+<div>Your cart is empty.</div>
+{{/if}}
+<button on-click="@.push('cart', {name:'type1', price:11})" > add type 1 </button>
+<button on-click="@.push('cart', {name:'type2', price:22})" > add type 2 </button>
+</script>
+    
+<script>
+function init() {
+
+//window.persistentData = {}; // Shared data object
+
+// [ { name:"name10" , price:10 } ]
+let initialPersistentData = { 'cart' : [ ] } ;
+window.persistentData = initialPersistentData ;
+
+if(typeof window.persistentData2 !== "undefined")
+ window.persistentData = window.persistentData2
+
+var ractive = new Ractive({
+    target: '#ractive-container',
+    template: '#template',
+    data: window.persistentData,
+    computed: {
+        total() {
+            const cart = this.get('cart');
+            if (!cart) return 0;
+            return cart.reduce((total, item) => total + item.price, 0);
+        }
+    }
+});
+
+window.ractive = ractive;
+}
+
+function save(){
+window.persistentData2 = window.persistentData
+}
+
+</script>
+`;
+    return html_code;
+} // example1
+
+function example2() {
     // https://marketplace.visualstudio.com/items?itemName=Tobermory.es6-string-html
     return /*html*/`<div id="app">
 <button @click="count++">Count by click : {{ count }}</button>
@@ -109,7 +167,7 @@ vue = Vue.createApp({
 </script>`
 }
 
-function example2() {
+function example3() {
     return /*html*/`<h1 class="text-3xl font-bold underline">Hello world from Tailwind with customizations!</h1>
 <p>sharing recent hack for TailWind-CSS without pre-compilations ( no PostCSS either ) . </p>
 <br>
