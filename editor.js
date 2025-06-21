@@ -86,7 +86,7 @@ onload = function () {
 
 // https://marketplace.visualstudio.com/items?itemName=Tobermory.es6-string-html
 
-function example1() {
+function example2() {
     const html_code = /*html*/`
 <div id="ractive-container"></div>
 
@@ -144,9 +144,9 @@ function save(){
 </script>
 `;
     return html_code;
-} // example1
+} // example2
 
-function example2() {
+function example1() {
     // https://marketplace.visualstudio.com/items?itemName=Tobermory.es6-string-html
     return /*html*/`<div id="app">
 
@@ -187,7 +187,7 @@ vue = Vue.createApp({
 }).mount('#app')
 
 }
-</script>`
+</script>` // example1
 }
 
 function example3() {
