@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product 2</title>
+</head>
+
+<body>
+    <h1>Product 2</h1>
+    <p>This is another great product.</p>
+    <p>Price: $20</p>
+    <button onclick="addToCart('Product 2', 20)">Add to Cart</button>
+    <p><a href="product-1.html">View Product 1</a></p>
+    <p><a href="editor.html">View Cart</a></p>
+
+    <script>
+        function addToCart(name, price) {
+            const sharedData = window.parent.persistentData;
+            if (!sharedData.cart) {
+                sharedData.cart = [];
+            }
+            sharedData.cart.push({ name, price });
+            alert(name + ' has been added to your cart.');
+        }
+    </script>
+</body>
+
+</html>

@@ -104,6 +104,7 @@ function example1() {
 {{/if}}
 <button on-click="@.push('cart', {name:'type1', price:11})" > add type 1 </button>
 <button on-click="@.push('cart', {name:'type2', price:22})" > add type 2 </button>
+<br> <a href="product-1.html" >product-1</a> <br> <a href="product-2.html" >product-2</a>
 </script>
     
 <script>
@@ -112,16 +113,18 @@ function init() {
 //window.persistentData = {}; // Shared data object
 
 // [ { name:"name10" , price:10 } ]
+/*
 let initialPersistentData = { 'cart' : [ ] } ;
 window.persistentData = initialPersistentData ;
 
-if(typeof window.persistentData2 !== "undefined")
- window.persistentData = window.persistentData2
+if(typeof window.parent.persistentData !== "undefined")
+ window.persistentData = window.parent.persistentData
+*/
 
 var ractive = new Ractive({
     target: '#ractive-container',
     template: '#template',
-    data: window.persistentData,
+    data: window.parent.persistentData,
     computed: {
         total() {
             const cart = this.get('cart');
@@ -135,7 +138,7 @@ window.ractive = ractive;
 }
 
 function save(){
-window.persistentData2 = window.persistentData
+//window.parent.persistentData = window.persistentData
 }
 
 </script>

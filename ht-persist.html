@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ht-persist Example</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        iframe {
+            border: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <iframe src="about:blank"></iframe>
+    <script>
+        window.persistentData = {}; // Shared data object
+
+        const iframe = document.querySelector('iframe');
+
+        function updateParent() {
+            if (iframe.contentWindow.location.href === 'about:blank') {
+                return;
+            }
+            // Update title
+            parent.document.title = iframe.contentWindow.document.title;
+
+            // Update URL hash with relative path
+            const iframeFullPath = iframe.contentWindow.location.pathname + iframe.contentWindow.location.search;
+            const parentDir = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+            let relativePath = iframeFullPath;
+            if (relativePath.startsWith(parentDir)) {
+                relativePath = relativePath.substring(parentDir.length);
+            }
+            if (relativePath.startsWith('/')) {
+                relativePath = relativePath.substring(1);
+            }
+
+            const newHash = relativePath;
+            if (newHash && '#' + newHash !== window.location.hash) {
+                history.pushState({ path: newHash }, '', '#' + newHash);
+            }
+        }
+
+        function updateIframe() {
+            const newSrc = window.location.hash.substring(1);
+            if (newSrc) {
+                if (iframe.src.endsWith('about:blank')) {
+                    iframe.src = newSrc;
+                    return;
+                }
+
+                // Get current iframe relative path to avoid loops
+                const iframeFullPath = iframe.contentWindow.location.pathname + iframe.contentWindow.location.search;
+                const parentDir = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+                let currentRelativePath = iframeFullPath;
+                if (currentRelativePath.startsWith(parentDir)) {
+                    currentRelativePath = currentRelativePath.substring(parentDir.length);
+                }
+                if (currentRelativePath.startsWith('/')) {
+                    currentRelativePath = currentRelativePath.substring(1);
+                }
+
+                if (newSrc !== currentRelativePath) {
+                    iframe.src = newSrc;
+                }
+            }
+        }
+
+        iframe.onload = function () {
+            updateParent();
+
+            if (iframe.contentWindow.location.href === 'about:blank') {
+                return;
+            }
+            const iframeDoc = iframe.contentWindow.document;
+            // Use event delegation to handle clicks on links
+            iframeDoc.addEventListener('click', function (event) {
+                const link = event.target.closest('a');
+                if (link && link.href) {
+                    // Check if the link is external by comparing hostnames
+                    const linkUrl = new URL(link.href, iframe.contentWindow.location.href);
+                    if (linkUrl.hostname !== window.location.hostname) {
+                        event.preventDefault();
+                        window.open(link.href, '_blank');
+                    }
+                }
+            });
+        };
+
+        window.addEventListener('hashchange', updateIframe);
+
+        // Initial load
+        if (window.location.hash) {
+            updateIframe();
+        } else {
+            const initialSrc = 'editor.html';
+            history.replaceState({ path: initialSrc }, '', '#' + initialSrc);
+            iframe.src = initialSrc;
+        }
+    </script>
+</body>
+
+</html>
