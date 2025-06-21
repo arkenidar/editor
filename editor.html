@@ -14,7 +14,7 @@
         // TailwindCSS
 
         // pairs of css selectors and classes to apply
-        const cssSelectorsClassesPairs = [
+        let cssSelectorsClassesPairs = [
 
             // ['button , input[type=button] , input[type=submit]', 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'],
 
@@ -30,6 +30,8 @@
 
             ['textarea , input[type=text] , input:not([type])', 'border border-gray-300'],
         ]
+
+        cssSelectorsClassesPairs = [] // disable default pairs
 
         // apply classes to selectors
         function cssSelectorsClassesPairApply(pair) {
