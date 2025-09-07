@@ -158,6 +158,7 @@ function example1() {
 </ul>
     <!-- v-else to show a fallback message if the list is empty -->
     <div v-if="cart.length === 0">No items in this shopping cart.</div>
+    <div v-else>total: {{total}}</div>
 </div>
 
 <br> <a href="product-1.html" >product-1</a> <br> <a href="product-2.html" >product-2</a> <br>
@@ -169,22 +170,29 @@ function example1() {
 <script>
 function init() {
 
-if( ! window.parent.persistentData.cart )
-  window.parent.persistentData.cart = []
+if( ! parent.persistentData.cart )
+  parent.persistentData.cart = [];
 
-vue = Vue.createApp({
+const vue = Vue.createApp({
     data() {
-        return window.parent.persistentData
+        return parent.persistentData
     },
-  methods: {
-    deleteItem(index) {
-      this.cart.splice(index, 1); // Removes the task at the given index
+    methods: {
+        deleteItem(index) {
+            this.cart.splice(index, 1); // Removes the task at the given index
+        },
+        addItem(item){
+            this.cart.push(item);
+        }
     },
-    addItem(item){
-      this.cart.push(item); 
-    }
-  }
-}).mount('#app')
+    computed: {
+        total() {
+            const cart = this.cart;
+            if (!cart) return 0;
+            return cart.reduce((total, item) => total + item.price, 0);
+        }
+    },
+}).mount('#app');
 
 }
 </script>` // example1
