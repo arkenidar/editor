@@ -84,6 +84,19 @@ onload = function () {
     textarea.oninput = textareaInput; textareaInput()
 }
 
+//-------------------------------
+// *EXAMPLES* Example code snippets
+//-------------------------------
+
+// https://marketplace.visualstudio.com/items?itemName=Tobermory.es6-string-html
+
+function example3() {
+    const html_code = /*html*/`
+<!-- example3 --> 
+`;
+    return html_code;
+}
+
 // https://marketplace.visualstudio.com/items?itemName=Tobermory.es6-string-html
 
 function example2() {
@@ -198,7 +211,7 @@ const vue = Vue.createApp({
 </script>` // example1
 }
 
-function example3() {
+function example4() {
     return /*html*/`<h1 class="text-3xl font-bold underline">Hello world from Tailwind with customizations!</h1>
 <p>sharing recent hack for TailWind-CSS without pre-compilations ( no PostCSS either ) . </p>
 <br>
