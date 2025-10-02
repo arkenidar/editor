@@ -42,9 +42,10 @@
             let relativePath = iframeFullPath;
             if (relativePath.startsWith(parentDir)) {
                 relativePath = relativePath.substring(parentDir.length);
-            }
-            if (relativePath.startsWith('/')) {
-                relativePath = relativePath.substring(1);
+
+                if (relativePath.startsWith('/')) {
+                    relativePath = relativePath.substring(1);
+                }
             }
 
             const newHash = relativePath;
