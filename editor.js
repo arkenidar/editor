@@ -108,8 +108,14 @@ function example3() {
 <button onclick="times_set(counter2,0)">reset</button>
 
 <script>
-    const data_switch = false // false for persistent data
-    const data = data_switch ? window : parent.persistentData
+    // [JS note] JavaScript code here is runned again and again .
+    // as this script is runned again and again it should not use e.g. global const variables
+    // otherwise it would unsuccessfully try to redefine them
+    // so we use var variables here which can be redefined
+    // instead of triggering errors which would stop the script execution
+    // (as they did till i debugged and fixed it)
+    var data_switch = false // false for persistent data
+    var data = data_switch ? window : parent.persistentData
 
     function times_increment(counter) {
         data.counter_times[counter.id] += 1;
@@ -125,9 +131,7 @@ function example3() {
     function times_init(counter) {
         if (typeof data.counter_times == "undefined")
             data.counter_times = {}
-        if (typeof data.counter_times[counter.id] == "undefined")
-            times_set(counter, 0)
-        times_set(counter)
+        times_set(counter, data.counter_times[counter.id] ?? 0)
     }
 
     function init() {
