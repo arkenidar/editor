@@ -92,7 +92,55 @@ onload = function () {
 
 function example3() {
     const html_code = /*html*/`
-<!-- example3 --> 
+<!-- example3 -->
+
+<h1>Persistent counters with shared data object</h1>
+
+<p><a href="/ht-persist/counters.html">/ht-persist/counters.html</a> SOURCE of following</p>
+
+<p><a href="/ht-persist/initial.html">initial.html</a> - initial page</p>
+
+<hr>
+<button id="counter1" onclick="times_increment(this)">click me!</button>
+<button onclick="times_set(counter1,0)">reset</button>
+<hr>
+<button id="counter2" onclick="times_increment(this)">click me!</button>
+<button onclick="times_set(counter2,0)">reset</button>
+
+<script>
+    const data_switch = false // false for persistent data
+    const data = data_switch ? window : parent.persistentData
+
+    function times_increment(counter) {
+        data.counter_times[counter.id] += 1;
+        times_set(counter)
+    }
+
+    function times_set(counter, times = null) {
+        if (times != null) data.counter_times[counter.id] = times
+        var s = data.counter_times[counter.id] != 1 ? "s" : ""
+        counter.textContent = "click me! clicked " + data.counter_times[counter.id] + " time" + s
+    }
+
+    function times_init(counter) {
+        if (typeof data.counter_times == "undefined")
+            data.counter_times = {}
+        if (typeof data.counter_times[counter.id] == "undefined")
+            times_set(counter, 0)
+        times_set(counter)
+    }
+
+    function init() {
+
+        times_init(counter1)
+        times_init(counter2)
+
+    }
+
+    init()
+</script>
+
+<hr>
 `;
     return html_code;
 }
