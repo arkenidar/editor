@@ -138,33 +138,36 @@
     <button type="button" onclick="textarea.value=example3();textareaInput()">example3</button>
     <br>
 
-    <style>
-        .relative {
-            position: relative;
-        }
-
-        .editor,
-        .textarea {
-            box-sizing: border-box;
-        }
-    </style>
     <div class="relative">
-        <div id="editor" class="editor border" spellcheck="false" translate="no"></div>
-        <textarea id="textarea" class="textarea border" spellcheck="false" translate="no"
+        <div id="editor" class="border" spellcheck="false" translate="no"></div>
+        <textarea id="textarea" class="border" spellcheck="false" translate="no"
             title="textarea for html code editor" placeholder="write some HTML code here"></textarea>
     </div>
     <script>
         function bind() {
-
-            // copy_size
-            editor.style.width = textarea.getBoundingClientRect().width + "px"
-            editor.style.height = textarea.getBoundingClientRect().height + "px"
-
-            // sync scrolls
-            editor.scrollTop = textarea.scrollTop
-            editor.scrollLeft = textarea.scrollLeft
+            // Get computed styles for accurate measurements
+            const textareaStyles = getComputedStyle(textarea);
+            
+            // Copy exact dimensions
+            editor.style.width = textareaStyles.width;
+            editor.style.height = textareaStyles.height;
+            
+            // Sync scrolling
+            editor.scrollTop = textarea.scrollTop;
+            editor.scrollLeft = textarea.scrollLeft;
         }
-        setInterval(bind, 0)
+
+        // Use requestAnimationFrame instead of setInterval for better performance
+        function startSyncing() {
+            function sync() {
+                bind();
+                requestAnimationFrame(sync);
+            }
+            requestAnimationFrame(sync);
+        }
+
+        // Start the syncing
+        startSyncing();
     </script>
 
     <script src="editor.js"></script>

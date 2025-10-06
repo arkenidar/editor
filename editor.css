@@ -1,3 +1,4 @@
+/* Syntax highlighting colors */
 .tag-inside {
     color: green;
     background-color: transparent;
@@ -13,37 +14,74 @@
     background-color: grey;
 }
 
-.border {
-    font: 13px monospace;
-    padding: 13px;
-    border: 1px black solid;
-    /* 28px from 2*(13+1) */
+/* Layout */
+.relative {
+    position: relative;
+    width: 100%;
 }
 
-.editor {
-    z-index: 1;
-}
+/* Editor and textarea styling */
+#editor,
+#textarea {
+    /* Box model consistency */
+    box-sizing: border-box;
 
-.textarea {
-    z-index: 2;
-
-    /* 28px from 2*(13+1) */
-    width: calc(100% - 28px);
-    height: 50vh;
-
-    background: transparent;
-    color: transparent;
-    caret-color: black;
-
-    resize: none;
-}
-
-.editor,
-.textarea {
+    /* Positioning */
     position: absolute;
     top: 0;
     left: 0;
 
-    overflow: auto;
+    /* Typography consistency */
+    font-family: 'Courier New', Consolas, monospace;
+    font-size: 14px;
+    line-height: 1.4;
+    letter-spacing: 0;
+
+    /* Text wrapping consistency */
     white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+
+    /* Visual consistency */
+    border: 1px solid #ccc;
+    padding: 8px;
+    margin: 0;
+
+    /* Sizing */
+    width: 100%;
+    height: 50vh;
+    min-height: 200px;
+    resize: both;
+    overflow: auto;
+}
+
+#textarea {
+    background: transparent;
+    color: transparent;
+    caret-color: black;
+    z-index: 1;
+}
+
+#editor {
+    background: white;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Optional border class for other elements */
+.border {
+    font: 13px monospace;
+    padding: 13px;
+    border: 1px black solid;
+    box-sizing: border-box;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+
+    #editor,
+    #textarea {
+        font-size: 12px;
+        padding: 4px;
+    }
 }
