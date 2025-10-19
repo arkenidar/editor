@@ -140,18 +140,18 @@
 
     <div class="relative">
         <div id="editor" class="border" spellcheck="false" translate="no"></div>
-        <textarea id="textarea" class="border" spellcheck="false" translate="no"
-            title="textarea for html code editor" placeholder="write some HTML code here"></textarea>
+        <textarea id="textarea" class="border" spellcheck="false" translate="no" title="textarea for html code editor"
+            placeholder="write some HTML code here"></textarea>
     </div>
     <script>
         function bind() {
             // Get computed styles for accurate measurements
             const textareaStyles = getComputedStyle(textarea);
-            
+
             // Copy exact dimensions
             editor.style.width = textareaStyles.width;
             editor.style.height = textareaStyles.height;
-            
+
             // Sync scrolling
             editor.scrollTop = textarea.scrollTop;
             editor.scrollLeft = textarea.scrollLeft;
