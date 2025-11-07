@@ -79,7 +79,26 @@ function textareaInput() {
     codeDecorations()
 }
 
+// Mobile touch optimization
+function isMobile() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+}
+
 onload = function () {
     textarea.value = localStorage.html || example1() // editor <- var
     textarea.oninput = textareaInput; textareaInput()
+
+    // Mobile-specific enhancements
+    if (isMobile()) {
+        // Prevent zoom on focus for iOS
+        textarea.addEventListener('focus', function () {
+            if (textarea.style.fontSize !== '16px') {
+                textarea.style.fontSize = '16px'
+            }
+        })
+
+        // Better touch scrolling
+        textarea.style.webkitOverflowScrolling = 'touch'
+        document.getElementById('editor').style.webkitOverflowScrolling = 'touch'
+    }
 }

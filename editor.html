@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>basic HTML editor</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover">
 
     <!-- TailwindCSS -->
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
@@ -128,16 +128,22 @@
     </script>
 
     <hr>
-    <button type="button" onclick="syncContent()">sync</button>
-    <label><input type="checkbox" id="autoSync" checked="">auto-sync</label>
-    <button type="button" onclick="location.reload()">reload</button>
-    <br>
-    <button type="button" onclick="codeDecorations()">code decorations</button>
+    <div class="controls-section">
+        <button type="button" onclick="syncContent()">🔄 Sync</button>
+        <label><input type="checkbox" id="autoSync" checked="">Auto-sync</label>
+        <button type="button" onclick="location.reload()">🔃 Reload</button>
+    </div>
+
+    <div class="controls-section">
+        <button type="button" onclick="codeDecorations()">🎨 Highlight</button>
+    </div>
 
     <script src="workspace/examples/examples_bundle.js"></script>
-    <button type="button" onclick="textarea.value=example1();textareaInput()">example1</button>
-    <button type="button" onclick="textarea.value=example2();textareaInput()">example2</button>
-    <button type="button" onclick="textarea.value=example3();textareaInput()">example3</button>
+    <div class="controls-section examples-section">
+        <button type="button" onclick="textarea.value=example1();textareaInput()">📝 Example 1</button>
+        <button type="button" onclick="textarea.value=example2();textareaInput()">📱 Example 2</button>
+        <button type="button" onclick="textarea.value=example3();textareaInput()">🔢 Example 3</button>
+    </div>
     <br>
 
     <div class="relative">
