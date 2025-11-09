@@ -112,12 +112,36 @@
         <script src="show-source.js" data-href="editor.css"></script>
         <button type="button" onclick="showSources()">show sources (toggle)</button>
     </div>
+    <hr>
 
-    <hr><br>
+    <button type="button" onclick="syncContent()">sync</button>
+    <label><input type="checkbox" id="autoSync" checked="">auto-sync</label>
+    <button type="button" onclick="location.reload()">reload</button>
+    <button type="button" onclick="panel_load.style.display = panel_load.style.display === 'none' ? 'initial' : 'none'">
+        load …</button>
+    <div id="panel_load" class="panel" style="display: none;">
+        load example:
+        <button type=" button" onclick="loadExampleFromURL('blank')">Blank</button>
+        <button type="button" onclick="loadExampleFromURL('vue')">Vue-JS</button>
+        <button type="button" onclick="loadExampleFromURL('ractive')">Ractive-JS</button>
+        <button type="button" onclick="loadExampleFromURL('ht-persist')">HT-Persist</button>
+        <button type="button" onclick="loadExampleFromURL('tailwind')">Tailwind-CSS</button>
+    </div>
+    <style>
+        .panel {
+            border: 1px solid gray;
+            padding: 4px;
+            margin: 4px;
+            background-color: #f0f0f0;
+        }
+    </style>
+    <hr>
 
     <div id="page"></div>
+    <hr>
 
     <pre id="html_console" contenteditable="" class="html_console border"></pre>
+    <button type="button" onclick="html_console.innerHTML = ''">clear console</button>
     <script>
         function html_write(html) {
             html_console.innerHTML += html
@@ -126,19 +150,7 @@
             html_write(html + "\n")
         }
     </script>
-
     <hr>
-    <button type="button" onclick="syncContent()">sync</button>
-    <label><input type="checkbox" id="autoSync" checked="">auto-sync</label>
-    <button type="button" onclick="location.reload()">reload</button>
-    <br>
-    <button type="button" onclick="codeDecorations()">code decorations</button>
-
-    <script src="workspace/examples/examples_bundle.js"></script>
-    <button type="button" onclick="textarea.value=example1();textareaInput()">example1</button>
-    <button type="button" onclick="textarea.value=example2();textareaInput()">example2</button>
-    <button type="button" onclick="textarea.value=example3();textareaInput()">example3</button>
-    <br>
 
     <div class="relative">
         <div id="editor" class="border" spellcheck="false" translate="no"></div>

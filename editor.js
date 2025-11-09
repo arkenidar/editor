@@ -74,12 +74,42 @@ function syncContentIf() {
     if (autoSync.checked) syncContent()
 }
 
+// on [input] in editor
 function textareaInput() {
     syncContentIf()
     codeDecorations()
 }
 
-onload = function () {
-    textarea.value = localStorage.html || example1() // editor <- var
-    textarea.oninput = textareaInput; textareaInput()
+// load text into editor
+function loadTextArea(textContent) {
+    textarea.value = textContent
+    textareaInput()
+}
+
+// on page load event
+window.onload = function () {
+    // events
+    textarea.oninput = textareaInput
+    // initial load into editor
+    loadTextArea(localStorage.html ?? "") // editor <- var
+}
+
+// helpers for loading examples or other editor contents
+
+// to load example from URL
+function loadExampleFromURL(exampleName) {
+    const url = `workspace/examples/${exampleName}.html`
+    loadTextAreaFromURL(url)
+}
+
+async function loadTextAreaFromURL(url) {
+    const textContent = await getTextFromURL(url)
+    loadTextArea(textContent)
+}
+
+// helper to get text from URL
+async function getTextFromURL(url) {
+    const response = await fetch(url)
+    const textContent = await response.text()
+    return textContent
 }

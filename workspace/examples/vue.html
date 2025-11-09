@@ -1,0 +1,51 @@
+<!-- example: Vue-JS -->
+
+<div id="app">
+
+    <div>
+        <ul>
+            <li v-for="(item,index) in cart" :key="item.id">
+                {{ item.name }} , {{ item.price }} ,
+                <button @click="deleteItem(index)">Delete</button>
+            </li>
+        </ul>
+        <!-- v-else to show a fallback message if the list is empty -->
+        <div v-if="cart.length === 0">No items in this shopping cart.</div>
+        <div v-else>total: {{total}}</div>
+    </div>
+
+    <br> <a href="product-1.html">product-1</a> <br> <a href="product-2.html">product-2</a> <br>
+    <button @click="addItem( {name:'type1', price:11} )"> add type 1 </button>
+    <button @click="addItem( {name:'type2', price:22} )"> add type 2 </button>
+
+</div>
+
+<script>
+    function init() {
+
+        if (!parent.persistentData.cart)
+            parent.persistentData.cart = [];
+
+        const vue = Vue.createApp({
+            data() {
+                return parent.persistentData
+            },
+            methods: {
+                deleteItem(index) {
+                    this.cart.splice(index, 1); // Removes the task at the given index
+                },
+                addItem(item) {
+                    this.cart.push(item);
+                }
+            },
+            computed: {
+                total() {
+                    const cart = this.cart;
+                    if (!cart) return 0;
+                    return cart.reduce((total, item) => total + item.price, 0);
+                }
+            },
+        }).mount('#app');
+
+    }
+</script>
