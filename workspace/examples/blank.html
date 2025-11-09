@@ -8,3 +8,15 @@
 </script>
 
 <button type="button" onclick="consoleUse()">use console</button>
+<hr>
+
+<script>
+    function displayToggle(element) {
+        element.style.display = element.style.display === '' ? 'none' : ''
+    }
+</script>
+<button type="button" onclick="displayToggle(panel_info)">
+    info …</button>
+<div id="panel_info" style="display: none;">
+    panel info: write your information here.
+</div>

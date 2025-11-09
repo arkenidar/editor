@@ -117,9 +117,14 @@
     <button type="button" onclick="syncContent()">sync</button>
     <label><input type="checkbox" id="autoSync" checked="">auto-sync</label>
     <button type="button" onclick="location.reload()">reload</button>
-    <button type="button" onclick="panel_load.style.display = panel_load.style.display === 'none' ? 'initial' : 'none'">
+    <button type="button" onclick="displayToggle(panel_load)">
         load …</button>
-    <div id="panel_load" class="panel" style="display: none;">
+    <script>
+        function displayToggle(element) {
+            element.style.display = element.style.display === '' ? 'none' : ''
+        }
+    </script>
+    <div id="panel_load" style="display: none;">
         load example:
         <button type=" button" onclick="loadExampleFromURL('blank')">Blank</button>
         <button type="button" onclick="loadExampleFromURL('vue')">Vue-JS</button>
@@ -127,14 +132,6 @@
         <button type="button" onclick="loadExampleFromURL('ht-persist')">HT-Persist</button>
         <button type="button" onclick="loadExampleFromURL('tailwind')">Tailwind-CSS</button>
     </div>
-    <style>
-        .panel {
-            border: 1px solid gray;
-            padding: 4px;
-            margin: 4px;
-            background-color: #f0f0f0;
-        }
-    </style>
     <hr>
 
     <div id="page"></div>
