@@ -1,0 +1,39 @@
+<!-- counters example -->
+
+<button onclick="this.innerText++">1</button>
+
+<button data-number="0" onclick="this.dataset.number++ ;
+ this.innerText='clicked: '+this.dataset.number">click me (not persistent) </button>
+
+<button onclick="this.innerText++">0</button>
+
+<button id="persistent1">click me (persistent1)</button>
+<button id="persistent2">click me (persistent2)</button>
+
+<script>
+    var data = parent.persistentData
+
+    button_initialize(persistent1)
+    button_initialize(persistent2)
+
+    function button_initialize(button_element) {
+        data.buttons = data.buttons ?? {}
+        data.buttons[button_element.id] = data.buttons[button_element.id] ?? {}
+        var button_data = data.buttons[button_element.id]
+
+        const initial = 0
+        button_data.number = button_data.number ?? initial
+
+        function button_click() {
+            button_data.number++
+            button_label(button_element)
+        }
+        function button_label(button_element) {
+            button_element.innerText = 'clicked: ' + button_data.number
+        }
+
+        if (button_data.number != initial) button_label(button_element)
+        button_element.onclick = button_click
+    } // end of function : button_initialize()
+
+</script>
