@@ -17,12 +17,12 @@
     button_initialize(persistent2)
 
     function button_initialize(button_element) {
-        data.buttons = data.buttons ?? {}
-        data.buttons[button_element.id] = data.buttons[button_element.id] ?? {}
+        data.buttons ??= {}
+        data.buttons[button_element.id] ??= {}
         var button_data = data.buttons[button_element.id]
 
         const initial = 0
-        button_data.number = button_data.number ?? initial
+        button_data.number ??= initial
 
         function button_click() {
             button_data.number++
