@@ -1,0 +1,49 @@
+<script>
+    // Access persistent data from parent window if available
+    const persistentData = (window.parent && window.parent.persistentData) || {};
+
+    // Initialize persistent state if not exists
+    if (!persistentData.mystore) {
+        persistentData.mystore = { open: false };
+    }
+
+    //document.addEventListener('alpine:init', () => {
+    Alpine.store('mystore', {
+        get open() {
+            return persistentData.mystore.open;
+        },
+        set open(value) {
+            persistentData.mystore.open = value;
+        },
+        toggle_open() {
+            this.open = !this.open;
+        }
+    })
+    //})
+</script>
+
+<div x-data>
+    <button @click="$store.mystore.toggle_open()">
+        toggle open</button>
+    <br>
+    <pre x-show="$store.mystore.open">
+        Content...
+        Content...
+        Content...
+        Content...
+        Content...
+        Content...
+        etc ( example of fragment of Content )
+    </pre>
+</div>
+<p>
+    Note for <b>ht-persist</b>: <br>
+    if you change inner-page, outer-page state will persist. <br>
+    so try "inner-reload" or "inner-navigate" to another page and come back. <br>
+
+    Instructions: just press <b>reload</b> button of this editor page to see state preserved <br>
+    (it <b>"stays"</b> : if open stays open , if closed stays closed , toggle and reload ). <br>
+
+    but <b>remember</b> where state is kept: in the <b>outer-page</b> window object, not in this inner-page window
+    object.
+</p>
